@@ -1,30 +1,33 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db.js')
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/db.js");
 
-const Movie = sequelize.define('Movie', {
+const Movie = sequelize.define(
+  "Movie",
+  {
     id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
     title: {
-        type: DataTypes.STRING,
-        unique: true
+      type: DataTypes.STRING,
+      unique: true,
     },
     description: {
-        type: DataTypes.TEXT,
-        unique: true
+      type: DataTypes.TEXT,
+      unique: true,
     },
     duration: {
-        type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
     release_date: {
-        type: DataTypes.DATEONLY
+      type: DataTypes.DATEONLY,
     },
-  
-}, {
-    tableName: 'Movies',
-    timestamps: false
-});
+  },
+  {
+    tableName: "Movies",
+    timestamps: false,
+  }
+);
 
-module.exports = Movie
+module.exports = Movie;
