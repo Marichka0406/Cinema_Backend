@@ -1,8 +1,11 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db.js");
+const Actor  = require("../models/actorModel.js")
+const Director = require('../models/directorModel.js')
+const Genre = require('../models/genreModel.js')
 
 const Movie = sequelize.define(
-  "Movie",
+  "movie",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -23,11 +26,14 @@ const Movie = sequelize.define(
     release_date: {
       type: DataTypes.DATEONLY,
     },
+    movie_image:{
+      type: DataTypes.STRING
+    }
   },
   {
     tableName: "Movies",
     timestamps: false,
   }
-);
+); 
 
 module.exports = Movie;

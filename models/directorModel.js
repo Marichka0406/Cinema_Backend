@@ -1,8 +1,9 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db.js");
+const Movie = require('../models/movieModel.js');
 
 const Director = sequelize.define(
-  "Director",
+  "director",
   {
     id: {
       type: DataTypes.INTEGER,

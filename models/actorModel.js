@@ -1,8 +1,9 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db.js");
+const Movie = require('../models/movieModel.js');
 
 const Actor = sequelize.define(
-  "Actor",
+  "actor",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -21,5 +22,6 @@ const Actor = sequelize.define(
     timestamps: false,
   }
 );
+
 
 module.exports = Actor;
