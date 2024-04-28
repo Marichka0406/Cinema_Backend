@@ -1,4 +1,4 @@
-const { Movie, Actor, Director, Genre, MovieActor, MovieDirector, MovieGenre } = require('../models/associations.js');
+const { Movie, Actor, Director, Genre, MovieActor, MovieDirector, MovieGenre, Screening} = require('../models/associations.js');
 
 const getAllMovies = async (req, res) => {
   try {
@@ -19,6 +19,10 @@ const getAllMovies = async (req, res) => {
           through: MovieGenre,
           as: 'genres',
         },
+        {
+          model: Screening, 
+          as: 'screenings', 
+        }
       ],
     });
 
