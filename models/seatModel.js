@@ -9,10 +9,10 @@ const Seat = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    raw_id: {
+    row_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "Raws",
+        model: "Rows",
         key: "id",
       },
     },

@@ -20,10 +20,13 @@ app.use(logger);
 const authRouter = require('./routes/loginRouter.js');
 const moviesRouter = require('./routes/moviesRouter.js');
 const screeningsRouter = require('./routes/screeningsRouter.js'); 
+const hallRouter = require('./routes/hallRouter.js');
 
 app.use('/auth', authRouter);
 app.use('/movies', moviesRouter);
-app.use('/screenings', screeningsRouter); 
+app.use('/screenings', screeningsRouter);
+app.use('/hall', hallRouter);
+ 
 
 app.use(errorHandler);
 

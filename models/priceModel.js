@@ -16,10 +16,10 @@ const Price = sequelize.define(
         key: "id",
       },
     },
-    raw_id: {
+    row_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "Raws",
+        model: "Rows",
         key: "id",
       },
     },

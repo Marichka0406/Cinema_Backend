@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db.js");
 
-const Raw = sequelize.define(
-  "Raw",
+const Row = sequelize.define(
+  "Row",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -21,9 +21,9 @@ const Raw = sequelize.define(
     },
   },
   {
-    tableName: "Raws",
+    tableName: "Rows",
     timestamps: false,
   }
 );
 
-module.exports = Raw;
+module.exports = Row;

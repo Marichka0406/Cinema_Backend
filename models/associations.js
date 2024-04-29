@@ -10,7 +10,7 @@ const User = require('./userModel.js');
 const UserRole = require('./userRoleModel.js');
 const Ticket = require('./ticketModel.js');
 const Seat = require('./seatModel.js');
-const Raw = require('./rawModel.js');
+const Row = require('./rowModel.js');
 const Hall = require('./hallModel.js');
 const Price = require('./priceModel.js');
 
@@ -37,11 +37,12 @@ Ticket.belongsTo(Screening, { foreignKey: 'screening_id' });
 Ticket.belongsTo(Seat, { foreignKey: 'seat_id' });
 
 // Місце пов'язане з рядом і залом
-Seat.belongsTo(Raw, { foreignKey: 'raw_id' });
-Raw.belongsTo(Hall, { foreignKey: 'hall_id' });
+Hall.hasMany(Row, { foreignKey: 'hall_id' });
+Seat.belongsTo(Row, { foreignKey: 'row_id' });
+Row.belongsTo(Hall, { foreignKey: 'hall_id' });
 
 // Ціна пов'язана з рядом і сеансом
-Price.belongsTo(Raw, { foreignKey: 'raw_id' });
+Price.belongsTo(Row, { foreignKey: 'row_id' });
 Price.belongsTo(Screening, { foreignKey: 'screening_id' });
 
 // Користувач пов'язаний з ролями користувачів
@@ -61,7 +62,7 @@ module.exports = {
   UserRole,
   Ticket,
   Seat,
-  Raw,
+  Row,
   Hall,
   Price
 };
