@@ -8,6 +8,12 @@ const MovieGenre = require('./movieGenreModel.js');
 const Screening = require('./screeningModel.js');
 const User = require('./userModel.js');
 const UserRole = require('./userRoleModel.js');
+const Ticket = require('./ticketModel.js');
+const Seat = require('./seatModel.js');
+const Raw = require('./rawModel.js');
+const Hall = require('./hallModel.js');
+const Price = require('./priceModel.js');
+
 // Описуємо зв'язки
 Movie.belongsToMany(Actor, { through: MovieActor, foreignKey: 'movie_id' });
 Movie.belongsToMany(Director, { through: MovieDirector, foreignKey: 'movie_id' });
@@ -23,8 +29,22 @@ Director.belongsToMany(Movie, { through: MovieDirector, foreignKey: 'director_id
 // Жанр може бути присутнім у багатьох фільмах
 Genre.belongsToMany(Movie, { through: MovieGenre, foreignKey: 'genre_id' });
 
+// Кожний сеанс пов'язаний з фільмом
 Screening.belongsTo(Movie, { foreignKey: "movie_id" });
 
+// Тикет пов'язаний з сеансом і місцем
+Ticket.belongsTo(Screening, { foreignKey: 'screening_id' });
+Ticket.belongsTo(Seat, { foreignKey: 'seat_id' });
+
+// Місце пов'язане з рядом і залом
+Seat.belongsTo(Raw, { foreignKey: 'raw_id' });
+Raw.belongsTo(Hall, { foreignKey: 'hall_id' });
+
+// Ціна пов'язана з рядом і сеансом
+Price.belongsTo(Raw, { foreignKey: 'raw_id' });
+Price.belongsTo(Screening, { foreignKey: 'screening_id' });
+
+// Користувач пов'язаний з ролями користувачів
 User.belongsTo(UserRole, { foreignKey: 'user_role_id' });
 UserRole.hasMany(User, { foreignKey: 'user_role_id' });
 
@@ -38,5 +58,10 @@ module.exports = {
   MovieGenre,
   Screening,
   User,
-  UserRole
+  UserRole,
+  Ticket,
+  Seat,
+  Raw,
+  Hall,
+  Price
 };
