@@ -21,11 +21,13 @@ const authRouter = require('./routes/loginRouter.js');
 const moviesRouter = require('./routes/moviesRouter.js');
 const screeningsRouter = require('./routes/screeningsRouter.js'); 
 const hallRouter = require('./routes/hallRouter.js');
+const ticketRouter = require('./routes/ticketRouter.js');
 
 app.use('/auth', authRouter);
 app.use('/movies', moviesRouter);
 app.use('/screenings', screeningsRouter);
 app.use('/hall', hallRouter);
+app.use('/tickets', ticketRouter);
  
 
 app.use(errorHandler);

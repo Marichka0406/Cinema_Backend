@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { getHallInfoByScreeningId } = require('../controllers/hallController');
+const hallController = require('../controllers/hallController');
 
-router.get('/:screeningId', getHallInfoByScreeningId);
+router.get('/:screeningId', hallController.getHallInfoByScreeningId);
 
 module.exports = router;
