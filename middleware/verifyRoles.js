@@ -1,12 +1,15 @@
 const verifyRoles = (...allowedRoles) => {
     return (req, res, next) => {
-        const userRoles = req.user.UserRoles.map(role => role.role);
-        const allowed = allowedRoles.some(role => userRoles.includes(role));
-        if (!allowed) {
-            return res.status(403).json({ message: 'Sorry! You have no rights!' });
-        }
-        next();
+      const role = req.headers.role;
+  
+      if (!role) return res.sendStatus(401);
+  
+      if (!allowedRoles.includes(role)) {
+        return res.status(403).json({ message: "You don't have access" });
+      }
+  
+      next();
     };
-};
-
-module.exports = verifyRoles
+  };
+  
+  module.exports = verifyRoles;

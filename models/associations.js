@@ -6,7 +6,8 @@ const MovieActor = require('./movieActorModel.js');
 const MovieDirector = require('./movieDirectorModel.js');
 const MovieGenre = require('./movieGenreModel.js');
 const Screening = require('./screeningModel.js');
-
+const User = require('./userModel.js');
+const UserRole = require('./userRoleModel.js');
 // Описуємо зв'язки
 Movie.belongsToMany(Actor, { through: MovieActor, foreignKey: 'movie_id' });
 Movie.belongsToMany(Director, { through: MovieDirector, foreignKey: 'movie_id' });
@@ -24,6 +25,9 @@ Genre.belongsToMany(Movie, { through: MovieGenre, foreignKey: 'genre_id' });
 
 Screening.belongsTo(Movie, { foreignKey: "movie_id" });
 
+User.belongsTo(UserRole, { foreignKey: 'user_role_id' });
+UserRole.hasMany(User, { foreignKey: 'user_role_id' });
+
 module.exports = {
   Movie,
   Actor,
@@ -32,5 +36,7 @@ module.exports = {
   MovieActor,
   MovieDirector,
   MovieGenre,
-  Screening
+  Screening,
+  User,
+  UserRole
 };
