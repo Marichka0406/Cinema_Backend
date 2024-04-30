@@ -1,4 +1,4 @@
-const Director = require("../models/directorModel.js");
+const { Director } = require('../models/associations.js');
 
 const getAllDirectors = async (req, res) => {
   try {

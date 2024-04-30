@@ -1,4 +1,4 @@
-const Actor = require('../models/actorModel.js')
+const { Actor } = require('../models/associations.js');
 
 const getAllActors = async (req, res) => {
     try {

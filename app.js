@@ -9,7 +9,7 @@ const errorHandler = require('./middleware/errorHandler');
 app.use(express.json());
 app.use(cors({
     origin: 'http://localhost:3001',
-    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -22,9 +22,15 @@ const moviesRouter = require('./routes/moviesRouter.js');
 const screeningsRouter = require('./routes/screeningsRouter.js'); 
 const hallRouter = require('./routes/hallRouter.js');
 const ticketRouter = require('./routes/ticketRouter.js');
+const actorsRouter = require('./routes/actorsRouter.js');
+const directorsRouter = require('./routes/directorsRouter.js');
+const genresRouter = require('./routes/genresRouter.js');
 
 app.use('/auth', authRouter);
 app.use('/movies', moviesRouter);
+app.use('/actors', actorsRouter);
+app.use('/directors', directorsRouter);
+app.use('/genres', genresRouter);
 app.use('/screenings', screeningsRouter);
 app.use('/hall', hallRouter);
 app.use('/tickets', ticketRouter);
