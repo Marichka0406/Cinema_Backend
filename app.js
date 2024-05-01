@@ -25,6 +25,7 @@ const ticketRouter = require('./routes/ticketRouter.js');
 const actorsRouter = require('./routes/actorsRouter.js');
 const directorsRouter = require('./routes/directorsRouter.js');
 const genresRouter = require('./routes/genresRouter.js');
+const statisticRouter = require('./routes/statisticRouter.js');
 
 app.use('/auth', authRouter);
 app.use('/movies', moviesRouter);
@@ -34,6 +35,7 @@ app.use('/genres', genresRouter);
 app.use('/screenings', screeningsRouter);
 app.use('/hall', hallRouter);
 app.use('/tickets', ticketRouter);
+app.use('/statistics', statisticRouter);
  
 
 app.use(errorHandler);
