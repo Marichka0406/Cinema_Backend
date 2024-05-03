@@ -34,7 +34,7 @@ const getTicketCountsByTimeOfDay = async (req, res) => {
 
 const getTotalRevenueLastMonth = async (req, res) => {
   try {
-    const query = 'SELECT dbo.GetTotalRevenueLastMonth() AS total_revenue';
+    const query = 'SELECT dbo.GetTotalRevenueLastMonth() AS total_revenue;'
     const result = await sequelize.query(query, { type: Sequelize.QueryTypes.SELECT });
    
     res.status(200).json(result[0]);

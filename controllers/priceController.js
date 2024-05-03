@@ -1,4 +1,4 @@
-const { Price, Screening, Row } = require('../models/associations.js');
+const { Price, Screening, Row, Movie} = require('../models/associations.js');
 
 const getAllPrices = async (req, res) => {
     try {
@@ -7,6 +7,12 @@ const getAllPrices = async (req, res) => {
           {
             model: Screening,
             attributes: ['id', 'movie_id', 'hall_id', 'date_time'],
+            include: [
+              {
+                model: Movie,
+                attributes: ['title'], // Додавання атрибуту назви фільму
+              }
+            ],
           },
           {
             model: Row,
@@ -21,12 +27,14 @@ const getAllPrices = async (req, res) => {
       res.status(500).json({ message: 'Error fetching prices' });
     }
 };
+
+
 // Контролер для створення ціни
 const createPrice = async (req, res) => {
-  const { screening_id, row_id, price } = req.body;
+  const { screeningId, rowId, price } = req.body;
 
   try {
-    const newPrice = await Price.create({ screening_id, row_id, price });
+    const newPrice = await Price.create({ screeningId, rowId, price });
     res.status(201).json(newPrice);
   } catch (error) {
     console.error('Error creating price:', error);
@@ -37,16 +45,16 @@ const createPrice = async (req, res) => {
 // Контролер для оновлення ціни
 const updatePrice = async (req, res) => {
   const { id } = req.params;
-  const { screening_id, row_id, price } = req.body;
-
+  const { screeningId, rowId, price } = req.body;
+  console.log(req.body)
   try {
     const updatedPrice = await Price.findByPk(id);
     if (!updatedPrice) {
       return res.status(404).json({ message: 'Price not found' });
     }
 
-    updatedPrice.screening_id = screening_id;
-    updatedPrice.row_id = row_id;
+    updatedPrice.screening_id = screeningId;
+    updatedPrice.row_id = rowId;
     updatedPrice.price = price;
     await updatedPrice.save();
 

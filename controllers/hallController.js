@@ -39,4 +39,18 @@ const getHallInfoByScreeningId = async (req, res) => {
   }
 };
 
-module.exports = { getHallInfoByScreeningId };
+const getHallByNumber = async (hallNumber) => {
+  try {
+    const hall = await Hall.findOne({
+      where: {
+        id: hallNumber
+      }
+    });
+    return hall;
+  } catch (error) {
+    console.error("Error fetching hall by number:", error);
+    throw error;
+  }
+};
+
+module.exports = { getHallInfoByScreeningId,getHallByNumber };

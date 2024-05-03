@@ -31,6 +31,8 @@ Genre.belongsToMany(Movie, { through: MovieGenre, foreignKey: 'genre_id' });
 
 // Кожний сеанс пов'язаний з фільмом
 Screening.belongsTo(Movie, { foreignKey: "movie_id" });
+Screening.belongsTo(Hall, { foreignKey: "hall_id" });
+Screening.hasMany(Price, { foreignKey: 'screening_id' });
 
 // Тикет пов'язаний з сеансом і місцем
 Ticket.belongsTo(Screening, { foreignKey: 'screening_id' });

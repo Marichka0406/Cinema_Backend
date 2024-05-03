@@ -24,7 +24,8 @@ const Screening = sequelize.define(
       },
     },
     date_time: {
-      type: DataTypes.DATE,
+      type: 'TIMESTAMP',
+      defaultValue: new Date().toISOString(),
     },
   },
   {

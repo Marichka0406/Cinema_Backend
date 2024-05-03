@@ -1,4 +1,22 @@
-const { Movie, Actor, Director, Genre, MovieActor, MovieDirector, MovieGenre, Screening} = require('../models/associations.js');
+const { Movie, Actor, Director, Genre, MovieActor, MovieDirector, MovieGenre, Screening, Ticket, Price} = require('../models/associations.js');
+
+const getAllMovieTitles = async (req, res) => {
+  try {
+    const movies = await Movie.findAll({
+      attributes: ['id', 'title'],
+    });
+
+    const movieData = movies.map(movie => ({
+      id: movie.id,
+      title: movie.title
+    }));
+
+    res.json(movieData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error while getting movie titles' });
+  }
+};
 
 const getAllMovies = async (req, res) => {
   try {
@@ -135,11 +153,33 @@ const updateMovie = async (req, res) => {
 const deleteMovie = async (req, res) => {
   try {
     const { id } = req.params;
+
+    // Знайти фільм за його ID
     const movieToDelete = await Movie.findByPk(id);
     if (!movieToDelete) {
       return res.status(404).json({ message: 'Movie not found' });
     }
+
+    // Знайдемо всі пов'язані записи у таблицях, що мають зв'язок з фільмами
+    await Promise.all([
+      MovieDirector.destroy({ where: { movie_id: id } }),
+      MovieGenre.destroy({ where: { movie_id: id } }),
+      MovieActor.destroy({ where: { movie_id: id } }),
+    ]);
+
+    // Пройтися по всіх сеансах фільму та видалити всі пов'язані квитки
+    const screenings = await Screening.findAll({ where: { movie_id: id } });
+    await Promise.all(screenings.map(async (screening) => {
+      await Ticket.destroy({ where: { screening_id: screening.id } });
+      await Price.destroy({ where: { screening_id: screening.id } });
+    }));
+ 
+    // Потім видалити всі сеанси
+    await Screening.destroy({ where: { movie_id: id } });
+
+    // Видалити сам фільм
     await movieToDelete.destroy();
+
     res.status(200).json({ message: 'Movie deleted successfully' });
   } catch (error) {
     console.error(error);
@@ -147,10 +187,12 @@ const deleteMovie = async (req, res) => {
   }
 };
 
+
 module.exports = {
   getAllMovies,
   createMovie,
   updateMovie,
-  deleteMovie
+  deleteMovie,
+  getAllMovieTitles
 };
 

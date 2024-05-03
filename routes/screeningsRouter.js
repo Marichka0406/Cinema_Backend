@@ -8,6 +8,10 @@ router.get('/', screeningController.getAllScreenings);
 // Маршрут для отримання сеансів за ID фільму
 router.get('/:movieId', screeningController.getScreeningsByMovieId);
 
+router.post('/dates', screeningController.getScreeningDatesByMovieTitle);
+
+router.post('/screening-by-date-and-title', screeningController.getScreeningByDateAndMovieTitle);
+
 // Маршрут для створення нового сеансу
 router.post('/', screeningController.createScreening);
 
